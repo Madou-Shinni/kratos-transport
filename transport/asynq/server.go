@@ -229,6 +229,10 @@ func waitResult(intor *asynq.Inspector, info *asynq.TaskInfo) (*asynq.TaskInfo, 
 		return nil, fmt.Errorf("task state is %s", taskInfo.State.String())
 	}
 
+	if taskInfo.State == asynq.TaskStateArchived {
+		return nil, fmt.Errorf("task error is %s", taskInfo.LastErr)
+	}
+
 	return taskInfo, nil
 }
 
